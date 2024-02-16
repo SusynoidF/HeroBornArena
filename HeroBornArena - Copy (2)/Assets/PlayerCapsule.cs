@@ -20,7 +20,7 @@ public class PlayerCapsule : MonoBehaviour
     private Rigidbody _rb;
 
     private CapsuleCollider _col;
-   
+    bool jump = false;
     void Start()
     {
          _rb = GetComponent<Rigidbody>();
@@ -41,19 +41,32 @@ public class PlayerCapsule : MonoBehaviour
         
             if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
             {
-                Vector3 rotation = Vector3.up * hInput;
-                _rb.AddForce(Vector3.up * jumpVelocity,
-                    ForceMode.Impulse);
+               jump = true;
             }
+        Debug.Log("IsGrounded: " + IsGrounded());
+        Debug.Log("Jumped:" + (IsGrounded() && Input.GetKeyDown(KeyCode.Space)));
+     }
+    void FixedUpdate() 
+    {
+        if (jump)
+        {
+            _rb.AddForce(Vector3.up * jumpVelocity,
+                ForceMode.Impulse);
+            jump = false;
         }
+        Vector3 rotation = Vector3.up * hInput;
 
+        Quaternion angleRot = Quaternion.Euler(rotation *
+            Time.fixedDeltaTime);
 
+        _rb.MovePosition(this.transform.position +
+        this.transform.forward * vInput * Time.fixedDeltaTime);
+
+        _rb.MoveRotation(_rb.rotation * angleRot);
     }
-    }
-    void FixedUpdate() { }
     
-public bool IsGrounded()
-{
+    private bool IsGrounded()
+    {
     // 7
     Vector3 capsuleBottom = new Vector3(_col.bounds.center.x,
         _col.bounds.min.y, _col.bounds.center.z);
@@ -65,14 +78,5 @@ public bool IsGrounded()
 
     // 9
     return grounded;
-    Vector3 rotation = Vector3.up * hInput;
-   
-        Quaternion angleRot = Quaternion.Euler(rotation *
-            Time.fixedDeltaTime);
-   
-        _rb.MovePosition(this.transform.position +
-        this.transform.forward * vInput * Time.fixedDeltaTime);
-   
-        _rb.MoveRotation(_rb.rotation * angleRot);
     }
 }
