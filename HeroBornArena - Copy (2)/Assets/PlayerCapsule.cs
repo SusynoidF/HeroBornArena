@@ -9,18 +9,17 @@ public class PlayerCapsule : MonoBehaviour
     public float moveSpeed = 10f;
     public float rotateSpeed = 75f;
 
-    public float jumpVelocity = 45f;
+    public float jumpVelocity = 15f;
 
-    public float distanceToGround = 0.1f;
+    public float distanceToGround = 0.01f;
     public LayerMask groundLayer;
 
   
     private float vInput;
     private float hInput;
     private Rigidbody _rb;
-
-    private CapsuleCollider _col;
     bool jump = false;
+    private CapsuleCollider _col;
     void Start()
     {
          _rb = GetComponent<Rigidbody>();
@@ -38,22 +37,23 @@ public class PlayerCapsule : MonoBehaviour
         Time.deltaTime);
         transform.Rotate(Vector3.up * hInput * Time.deltaTime);
         */
-        
-            if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
             {
                jump = true;
             }
         Debug.Log("IsGrounded: " + IsGrounded());
         Debug.Log("Jumped:" + (IsGrounded() && Input.GetKeyDown(KeyCode.Space)));
-     }
-    void FixedUpdate() 
-    {
         if (jump)
         {
             _rb.AddForce(Vector3.up * jumpVelocity,
                 ForceMode.Impulse);
             jump = false;
         }
+           
+     }
+    void FixedUpdate() 
+    {
+         
         Vector3 rotation = Vector3.up * hInput;
 
         Quaternion angleRot = Quaternion.Euler(rotation *
