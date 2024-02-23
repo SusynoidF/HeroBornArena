@@ -13,7 +13,8 @@ public class PlayerCapsule : MonoBehaviour
 
     public float distanceToGround = 0.01f;
     public LayerMask groundLayer;
-
+    public GameObject bullet;
+    public float bulletSpeed = 50f;
   
     private float vInput;
     private float hInput;
@@ -49,6 +50,16 @@ public class PlayerCapsule : MonoBehaviour
                 ForceMode.Impulse);
             jump = false;
         }
+            if (Input.GetMouseButtonDown(0))
+            {
+            GameObject newBullet = Instantiate(bullet,
+            this.transform.position + new Vector3(1,0,0),
+            this.transform.rotation) as GameObject;
+            Rigidbody bulletRB =
+                newBullet.GetComponent<Rigidbody>();
+            
+            bulletRB.velocity = this.transform.forward * bulletSpeed;
+            }
            
      }
     void FixedUpdate() 
