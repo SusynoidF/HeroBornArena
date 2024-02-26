@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameBehavior : MonoBehaviour
 {  // 1
-     public string labelText =
-      "Collect all 4 items and win your freedom!";
+     public string labelText = "Collect All Items and Win"
      public int maxItems = 4;
      public bool showWinScreen = false;
      private int _itemsCollected = 0;
