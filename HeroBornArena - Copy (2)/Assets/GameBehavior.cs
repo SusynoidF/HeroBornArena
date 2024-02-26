@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameBehavior : MonoBehaviour
 {  // 1
-     public string labelText = "Collect All Items and Win"
+     public string labelText = "Collect All Items and Win";
      public int maxItems = 4;
      public bool showWinScreen = false;
      private int _itemsCollected = 0;
@@ -21,9 +21,9 @@ public class GameBehavior : MonoBehaviour
              }
              else
              {
-                 labelText = "Item found, only " + (maxItems 
-                    _itemsCollected) + " more to go!";
-             }
+                 labelText = "Item found, only " + (maxItems = _itemsCollected) +" more to go!";
+
+            }
          }
      }
       private int _playerHP = 3;
@@ -42,7 +42,7 @@ public class GameBehavior : MonoBehaviour
          GUI.Box(new Rect(20, 50, 150, 25), "Items Collected: " +
             _itemsCollected);
          
-         GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height 
+         GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height /
             50, 300, 50), labelText);
              if (showWinScreen)
            {
