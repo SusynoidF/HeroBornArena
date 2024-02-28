@@ -53,7 +53,7 @@ public class PlayerCapsule : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
             GameObject newBullet = Instantiate(bullet,
-            this.transform.position + new Vector3(1,0,0),
+            this.transform.position + new Vector3(0,0,1),
             this.transform.rotation) as GameObject;
             Rigidbody bulletRB =
                 newBullet.GetComponent<Rigidbody>();
