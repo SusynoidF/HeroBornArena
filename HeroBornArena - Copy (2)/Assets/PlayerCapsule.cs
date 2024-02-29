@@ -21,11 +21,15 @@ public class PlayerCapsule : MonoBehaviour
     private Rigidbody _rb;
     bool jump = false;
     private CapsuleCollider _col;
+
+    private GameBehavior _gameManager;
     void Start()
     {
          _rb = GetComponent<Rigidbody>();
 
         _col = GetComponent<CapsuleCollider>();
+
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameBehavior>();
      }
 
     void Update()
@@ -89,5 +93,13 @@ public class PlayerCapsule : MonoBehaviour
 
     // 9
     return grounded;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.GameObject.name == "Enemy")
+        {
+            _gameManager.HP -= 1;
+        }
     }
 }
