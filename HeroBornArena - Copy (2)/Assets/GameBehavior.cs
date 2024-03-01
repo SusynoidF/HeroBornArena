@@ -36,13 +36,13 @@ public class GameBehavior : MonoBehaviour
              _playerHP = value;
              if(_playerHP <= 0)
              {
-                labelText = "Oof, thats rough buddy"
+                labelText = "Oof, thats rough buddy";
                 showLossScreen = true;
                 Time.timeScale = 0;
              }
              else
              {
-                labelText = "Ouchie"
+                labelText = "Ouchie";
              }
              Debug.LogFormat("Lives: {0}", _playerHP);
          }
@@ -68,7 +68,7 @@ public class GameBehavior : MonoBehaviour
              if (GUI.Button(new Rect(Screen.width/2 - 100,
                 Screen.height/2 - 50, 200, 100), "YOU WON!"))
              {
-                RestartLevel();
+               RestartLevel();
              }
             }
 
@@ -77,7 +77,7 @@ public class GameBehavior : MonoBehaviour
                 if (GUI.Button(new Rect(Screen.width / 2 - 100,
                 Screen.height / 2 - 50, 200, 100), "Unfortunate..."))
                 {
-                    RestartLevel();
+                  RestartLevel();
                 }
              }
         }

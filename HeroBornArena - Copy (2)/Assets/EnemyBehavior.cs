@@ -35,7 +35,7 @@ public class EnemyBehavior : MonoBehaviour
          MoveToNextPatrolLocation();
      }
 
-     void Update()
+void Update()
      {
         if(agent.remainingDistance < 0.2f && !agent.pathPending)
         {
@@ -59,8 +59,8 @@ public class EnemyBehavior : MonoBehaviour
          {
              // 6
              locations.Add(child);
-             }
-             }
+        }
+    }
      // 1
      void OnTriggerEnter(Collider other)
      {
@@ -71,7 +71,7 @@ public class EnemyBehavior : MonoBehaviour
              Debug.Log("Player detected - attack!");
          }
      }
- void OnTriggerExit(Collider other)
+void OnTriggerExit(Collider other)
      {
          // 4
          if(other.name == "Player")
@@ -80,7 +80,7 @@ public class EnemyBehavior : MonoBehaviour
          }
      }
 
-     void OnCollisionEnter(Collision collision)
+void OnCollisionEnter(Collision collision)
      {
         if(collision.gameObject.name == "Bullet(Clone)")
         {
@@ -89,4 +89,4 @@ public class EnemyBehavior : MonoBehaviour
         }
      }
      
- }
+}
