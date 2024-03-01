@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 public class EnemyBehavior : MonoBehaviour
-{ // 1
+{
     public Transform player;
-     public Transform patrolRoute;
-     // 2
-     public List<Transform> locations;
-     private int locationIndex = 0;
-     private NavMeshAgent agent;
+    public Transform patrolRoute;
+
+    public List<Transform> locations;
+    private int locationIndex = 0;
+    private NavMeshAgent agent;
 
      private int _lives = 3;
      public int EnemyLives
@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             _lives = value;
 
-            if {_lives <= 0}
+            if (_lives <= 0)
             {
                 Destroy(this.gameObject);
                 Debug.Log("Enemy down.");
@@ -28,9 +28,11 @@ public class EnemyBehavior : MonoBehaviour
      }
      void Start()
      {
-        agent = GetComponent<NavMeshAgent>();
-         player = GameObject.Find("Player").transform;
-         InitializePatrolRoute();
+         agent = GetComponent<NavMeshAgent>();
+         
+        player = GameObject.Find("Player").transform;
+         
+        InitializePatrolRoute();
 
          MoveToNextPatrolLocation();
      }
@@ -45,10 +47,14 @@ void Update()
  // 4
  void MoveToNextPatrolLocation()
      {
-        if(locacations.Count == 0)
-        return;
-        agent.destination = locations[locationIndex].position;
-        locationIndex = (locationIndex + 1) % locations.Count;
+        if (locations.Count == 0)
+        
+            return;
+        
+            agent.destination = locations[locationIndex].position;
+            
+            locationIndex = (locationIndex + 1) % locations.Count;
+        
      }
      // 3
     
@@ -67,13 +73,14 @@ void Update()
          //2
          if(other.name == "Player")
          {
-            agent,destination = player.position;
-             Debug.Log("Player detected - attack!");
+            agent.destination = player.position;
+             
+            Debug.Log("Player detected - attack!");
          }
      }
 void OnTriggerExit(Collider other)
      {
-         // 4
+        
          if(other.name == "Player")
          {
              Debug.Log("Player out of range, resume patrol");

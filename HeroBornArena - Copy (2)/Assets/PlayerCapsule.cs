@@ -97,7 +97,7 @@ public class PlayerCapsule : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.GameObject.name == "Enemy")
+        if (collision.gameObject.name == "Enemy") 
         {
             _gameManager.HP -= 1;
         }
