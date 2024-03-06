@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerPickUp : MonoBehaviour
-{
+{   public GameBehavior gameManager;
     //1
     void OnCollisionEnter(Collision collision)
     {
@@ -14,7 +14,12 @@ public class PowerPickUp : MonoBehaviour
             Destroy(this.transform.parent.gameObject);
 
             //4
-            Debug.Log("Power Up!");
+            Debug.Log("Hammer Get!");
+            
         }
+         gameManager.Items += 1;
+ // 4
+    gameManager.PrintLootReport();
     }
+   
 }

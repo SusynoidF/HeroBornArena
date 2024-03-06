@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthPickUp : MonoBehaviour
-{  
-    //1
+{  public GameBehavior gameManager;
+    void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameBehavior>();
+    }
     void OnCollisionEnter (Collision collision)
     { 
         //2
@@ -15,6 +18,7 @@ public class HealthPickUp : MonoBehaviour
             
             //4
             Debug.Log("Health Up!");
+            gameManager.HP += 1;
         }
     }
 }

@@ -15,19 +15,21 @@ public class SpeedBoost : MonoBehaviour
             Destroy(this.transform.parent.gameObject);
 
             speedBoost();
+
+           
             
             //4
-            Debug.Log("Speed Up!");
         }
     }
     void speedBoost()
     {
         player.moveSpeed *= 2;
-        Invoke("endspeedBoost", 5);
+        Debug.Log("SpeedBoost!");
 
     }
     void endspeedBoost()
     {
         player.moveSpeed /= 2;
+        Debug.Log("SpeedBoostOver...");
     }
 }

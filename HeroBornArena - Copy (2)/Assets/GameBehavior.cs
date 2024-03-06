@@ -2,10 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class GameBehavior : MonoBehaviour
-{  // 1
+using CustomExtensions;
+public class GameBehavior : MonoBehaviour, Imanager
+{  public delegate void DebugDelegate(string newText);
+
+   public DebugDelegate debug = Print;
+   public Stack<string> lootStack = new Stack<string>();
+   private string _state;
+
+   public string State
+   {
+      get {return _state;}
+      set {State = value;}
+   }
      public string labelText = "Collect All Items and Win";
-     public int maxItems = 4;
+     public int maxItems = 5;
      public bool showWinScreen = false;
      public bool showLossScreen = false;
      private int _itemsCollected = 0;
@@ -68,7 +79,7 @@ public class GameBehavior : MonoBehaviour
              if (GUI.Button(new Rect(Screen.width/2 - 100,
                 Screen.height/2 - 50, 200, 100), "YOU WON!"))
              {
-               RestartLevel();
+               Utilities.RestartLevel(0);
              }
             }
 
@@ -76,10 +87,74 @@ public class GameBehavior : MonoBehaviour
              {
                 if (GUI.Button(new Rect(Screen.width / 2 - 100,
                 Screen.height / 2 - 50, 200, 100), "Unfortunate..."))
-                {
-                  RestartLevel();
+                { try
+                 {
+                     Utilities.RestartLevel(-1);
+                     debug("Level restarted successfully...");
+                 }
+                  // 2
+                 catch (System.ArgumentException e)
+                 {
+                                                 
+                   Utilities.RestartLevel(0);
+                     debug("Reverting to scene 0: " +
+                        e.ToString());
+                 }
+                                        
+                 finally
+                      {
+                        debug("Restart handled...");
+                      }
                 }
              }
         }
+        void Start()
+        {
+         Initialize();
+         InventoryList<string> inventoryList = new InventoryList<string>();
+
+         inventoryList.SetItem("Potion");
+         Debug.Log(inventoryList.item);
+        }
+        public void Initialize()
+        {
+         _state = "Manager initailized..";
+         _state.FancyDebug();
+         debug(_state);
+         LogWithDelegate(debug);
+          GameObject player = GameObject.Find("Player");
+        
+         PlayerCapsule playerCapsule =
+             player.GetComponent<PlayerCapsule>();
+         
+         playerCapsule.playerJump += HandlePlayerJump;
+         
+          
+         lootStack.Push("Sword of Doom");
+         lootStack.Push("HP+");
+         lootStack.Push("Golden Key");
+         lootStack.Push("Winged Boot");
+         lootStack.Push("Mythril Bracers");
+        }
+        public static void Print(string newText)
+        {
+            Debug.Log(newText);
+        }
+        public void LogWithDelegate(DebugDelegate del)
+        {
+            del("Delegating the debug task...");
+        }
+        public void PrintLootReport()
+         {  var currentItem = lootStack.Pop();
+           
+            var nextItem = lootStack.Peek();
+           
+            Debug.LogFormat("You got a {0}! You have a good chance of finding a {1} next!", currentItem, nextItem);
+            Debug.LogFormat("There are {0} random loot items waiting for you!", lootStack.Count);
+         } 
+         public void HandlePlayerJump()
+         {
+            debug("Player has jumped...");
+         }
      }
 
