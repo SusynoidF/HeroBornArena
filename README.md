@@ -1,1 +1,1 @@
-http://localhost:63122
+https://susynoidf.github.io/HeroBornArena/
